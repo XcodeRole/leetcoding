@@ -15,18 +15,32 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// 快慢指针
 class Solution {
-unordered_map<int,ListNode*> visited;
 public:
     ListNode* middleNode(ListNode* head) {
-        int nodeId = 0;
-        while(head){
-            visited[nodeId] = head;
-            head = head->next;
-            nodeId++;
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        return visited[nodeId/2];
+        return slow;
     }
 };
+// 使用额外空间存储以访问节点，这里是map
+// class Solution {
+// unordered_map<int,ListNode*> visited;
+// public:
+//     ListNode* middleNode(ListNode* head) {
+//         int nodeId = 0;
+//         while(head){
+//             visited[nodeId] = head;
+//             head = head->next;
+//             nodeId++;
+//         }
+//         return visited[nodeId/2];
+//     }
+// };
 // @lc code=end
 
